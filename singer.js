@@ -5,6 +5,29 @@ class Singer{
         this.link = link;
         this.avatar = avatar;
     }
+    static addSinger(newID,name,profile,avatar){
+        let newSinger = new Singer();
+        newSinger._id = newID;
+        newSinger.name = name;
+        newSinger.link = profile;
+        newSinger.avatar = avatar;
+        arraySinger.push(newSinger);        
+    }
+    static deleteSinger(delID){
+        arraySinger.forEach(element => {
+            if (element._id == delID) {
+                arraySinger.pop(element);
+            }
+        });        
+    }
+    static editSinger(editID,name,profile,avatar){
+        let index = parseInt(editID) - 1;
+        let singer = arraySinger.find(value => value._id == editID);
+        singer.name = name;
+        singer.link = profile;
+        singer.avatar = avatar;
+        arraySinger[index] = singer;
+    }
 }
 const profileLink = "https://zingmp3.vn/nghe-si/";
 const avatarLink = 'https://photo-resize-zmp3.zadn.vn/w240_r1x1_jpeg/avatars/';
