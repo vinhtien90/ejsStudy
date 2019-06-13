@@ -16,12 +16,13 @@ class Singer{
     static deleteSinger(delID){
         arraySinger.forEach(element => {
             if (element._id == delID) {
-                arraySinger.pop(element);
+                let index = arraySinger.indexOf(element);
+                arraySinger.splice(index,1)
             }
         });        
     }
     static editSinger(editID,name,profile,avatar){
-        let index = parseInt(editID) - 1;
+        let index = arraySinger.findIndex(x => x._id === editID);
         let singer = arraySinger.find(value => value._id == editID);
         singer.name = name;
         singer.link = profile;
