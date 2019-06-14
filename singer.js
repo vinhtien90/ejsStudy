@@ -1,4 +1,5 @@
-class Singer{
+
+class Singer{    
     constructor(_id, name, link, avatar){
         this._id = _id;
         this.name = name;
@@ -11,23 +12,25 @@ class Singer{
         newSinger.name = name;
         newSinger.link = profile;
         newSinger.avatar = avatar;
-        arraySinger.push(newSinger);        
+        arraySinger.push(newSinger);            
     }
     static deleteSinger(delID){
         arraySinger.forEach(element => {
             if (element._id == delID) {
                 let index = arraySinger.indexOf(element);
-                arraySinger.splice(index,1)
+                arraySinger.splice(index,1);                
+            
             }
         });        
     }
     static editSinger(editID,name,profile,avatar){
-        let index = arraySinger.findIndex(x => x._id === editID);
-        let singer = arraySinger.find(value => value._id == editID);
-        singer.name = name;
-        singer.link = profile;
-        singer.avatar = avatar;
-        arraySinger[index] = singer;
+        let index = arraySinger.findIndex(x => x._id == editID);        
+        if (index >= 0) {
+            arraySinger[index].name = name;
+            arraySinger[index].link = profile;
+            arraySinger[index].avatar = avatar;                       
+        } 
+        
     }
 }
 const profileLink = "https://zingmp3.vn/nghe-si/";

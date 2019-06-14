@@ -5,7 +5,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set('view engine','ejs');
 app.listen(3000);
 
-let message = null;
+let message = null; 
 app.get('/home',(req,res)=>{
     message = null;
     res.render('home',{arraySinger,profileLink,avatarLink,message});
@@ -15,8 +15,8 @@ app.post('/home',(req,res)=>{
     try {
         const {name,profile,avatar} = req.body;
         let newID = arraySinger.length + 1;
-        Singer.addSinger(newID,name,profile,avatar);
-        message = "Added new singer!";
+        Singer.addSinger(newID,name,profile,avatar); 
+        message = "Added new singer!";       
     res.render('home',{arraySinger,profileLink,avatarLink,message});
     } catch (error) {
         message = error.message;
@@ -26,9 +26,10 @@ app.post('/home',(req,res)=>{
 
 app.get('/home/delete/:id',(req,res)=>{
     try {
-        const delID = req.params.id;              
-        Singer.deleteSinger(delID);
-        message = "Deleted a singer!";
+        message = "Deleted a singer!"
+        const delID = req.params.id;          
+        checkArray(delID,message);    
+        Singer.deleteSinger(delID);        
         res.render('home',{arraySinger,profileLink,avatarLink,message});
     } catch (error) {
         message = error.message;
@@ -38,10 +39,11 @@ app.get('/home/delete/:id',(req,res)=>{
 
 app.post('/home/edit/:id',(req,res)=>{
     try {
-        const editID = req.params.id;    
+        message = "Edited a singer!"
+        const editID = req.params.id;
+        checkArray(editID,message);    
         const {name,profile,avatar} = req.body;
-        Singer.editSinger(editID,name,profile,avatar);
-        message = "Updated a singer!";
+        Singer.editSinger(editID,name,profile,avatar);        
         res.render('home',{arraySinger,profileLink,avatarLink,message});
     } catch (error) {
         message = error.message;
@@ -49,3 +51,11 @@ app.post('/home/edit/:id',(req,res)=>{
     }
 })
 
+function checkArray(id,str){
+    let index = arraySinger.findIndex(x=>x._id == id);
+    if(index >=0){
+        message = str;
+    }else{
+        message = "Not found ID"
+    }
+}
